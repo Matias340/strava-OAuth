@@ -8,7 +8,7 @@ Esta aplicación permite a los usuarios iniciar sesión con su cuenta de Strava 
 
 ### **Requisitos Previos**
 
-Antes de comenzar, asegúrate de tener instalado lo siguiente:
+Antes de comenzar, hay que tener instalado lo siguiente:
 
 - [Node.js](https://nodejs.org/) (recomendado: LTS)
 - [Expo CLI](https://expo.dev/) (`npm install -g expo-cli`)
