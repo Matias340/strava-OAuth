@@ -2,6 +2,8 @@
   "expo": {
     "name": "StravaApp-OAuth",
     "slug": "StravaApp-OAuth",
+    "scheme": "stravaapp",
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
