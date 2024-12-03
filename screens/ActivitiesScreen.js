@@ -1,23 +1,27 @@
-import React, { useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
-import { useStore } from '../store';
-import { useQuery } from 'react-query';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { useStore } from "../store";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { getActivities } from "../api/strava.api";
 
 const ActivitiesScreen = ({ navigation }) => {
-  const activities = useStore(state => state.activities);
-  const setActivities = useStore(state => state.setActivities);
-  const accessToken = useStore(state => state.accessToken);
+  const activities = useStore((state) => state.activities);
+  const setActivities = useStore((state) => state.setActivities);
+  const accessToken = useStore((state) => state.accessToken);
 
   // Usando React Query para obtener las actividades de Strava
-  const { isLoading, error, data } = useQuery('activities', async () => {
-    const response = await axios.get('https://www.strava.com/api/v3/athlete/activities', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      }
-    });
-    return response.data;
-  });
+  const { isLoading, error, data } = useQuery(
+    "activities",
+    getActivities(accessToken)
+  );
 
   useEffect(() => {
     if (data) {
@@ -25,8 +29,12 @@ const ActivitiesScreen = ({ navigation }) => {
     }
   }, [data, setActivities]);
 
-  if (isLoading) return <ActivityIndicator size="large" style={styles.loader} />;
-  if (error) return <Text style={styles.errorText}>Error al cargar las actividades</Text>;
+  if (isLoading)
+    return <ActivityIndicator size="large" style={styles.loader} />;
+  if (error)
+    return (
+      <Text style={styles.errorText}>Error al cargar las actividades</Text>
+    );
 
   return (
     <View style={styles.container}>
@@ -35,13 +43,14 @@ const ActivitiesScreen = ({ navigation }) => {
         data={activities}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-         
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Nombre:</Text>
             <Text style={styles.cardContent}>{item.name}</Text>
 
             <Text style={styles.cardTitle}>Fecha:</Text>
-            <Text style={styles.cardContent}>{new Date(item.start_date).toLocaleDateString()}</Text>
+            <Text style={styles.cardContent}>
+              {new Date(item.start_date).toLocaleDateString()}
+            </Text>
 
             <Text style={styles.cardTitle}>Distancia:</Text>
             <Text style={styles.cardContent}>{item.distance} m</Text>
@@ -54,8 +63,11 @@ const ActivitiesScreen = ({ navigation }) => {
           </View>
         )}
       />
-     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Estadisticas mensuales')}>
-      <Text style={styles.buttonText}>Ir a estadisiticas mensuales</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("Estadisticas mensuales")}
+      >
+        <Text style={styles.buttonText}>Ir a estadisiticas mensuales</Text>
       </TouchableOpacity>
     </View>
   );
@@ -65,29 +77,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 16,
   },
   loader: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   errorText: {
-    textAlign: 'center',
-    color: 'red',
+    textAlign: "center",
+    color: "red",
     fontSize: 18,
   },
   card: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 16,
     marginVertical: 8,
     borderRadius: 8,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -95,7 +107,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
   },
   cardContent: {
@@ -103,18 +115,18 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   button: {
-    backgroundColor: '#ff5900',
+    backgroundColor: "#ff5900",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 10,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default ActivitiesScreen;
