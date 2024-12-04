@@ -10,9 +10,12 @@ Esta aplicación permite a los usuarios iniciar sesión con su cuenta de Strava 
 
 Antes de comenzar, hay que tener instalado lo siguiente:
 
-- [Node.js](https://nodejs.org/) (recomendado: LTS)
-- [Expo CLI](https://expo.dev/) (`npm install -g expo-cli`)
+- [Node.js](https://nodejs.org/) (recomendado: LTS).
+- Instalar la carpeta node_modules con el comando "npm install".
+- Para iniciar la aplicación debe ejecutar el comando "npx expo start".
 - Una cuenta en [Strava Developers](https://developers.strava.com/) para obtener tu `clientId` y `clientSecret`.
+- Para que funcione la autenticación tiene que ir a su cuanta personal de Strava y en la seccion de
+  "Authentication domain callback" ingresar la ip local de su PC sin su puerto. ejemplo(192.168.0.100).
 - Un dispositivo físico o un emulador (iOS o Android).
 
 ### **Pasos de Configuración**
@@ -47,6 +50,10 @@ Expo: Entorno para simplificar el desarrollo y testing multiplataforma.
 expo-auth-session: Para implementar el flujo de autorización OAuth 2.0.
 Zustand: Manejo de estado de autenticación.
 Axios: Cliente HTTP para obtener tokens de Strava.
+
+### Cosas que se pueden mejorar con mas tiempo:
+- Mejora en el diseño de la aplicación
+- Mayor modularización en el codigo
 
 🔗 Recursos
 Documentación de Strava API
