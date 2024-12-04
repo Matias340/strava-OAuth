@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useStore } from "../store";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { getActivities } from "../api/strava.api";
 
 const ActivitiesScreen = ({ navigation }) => {

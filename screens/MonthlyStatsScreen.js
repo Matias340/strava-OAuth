@@ -5,12 +5,10 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { useQuery } from "react-query";
 import { useStore } from "../store";
-import axios from "axios";
 import { getActivities } from "../api/strava.api";
 
 const MonthlyStatsScreen = ({ navigation }) => {
@@ -63,7 +61,7 @@ const MonthlyStatsScreen = ({ navigation }) => {
                 })
               }
             >
-              <Text style={styles.buttonText}>Ver actividades</Text>
+              <Text style={styles.buttonText}>Ver actividades del mes</Text>
             </TouchableOpacity>
           </View>
         )}
